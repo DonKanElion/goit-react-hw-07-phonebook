@@ -1,16 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { findContact } from 'redux/contactsSlice';
+import { getFilterValue } from 'redux/selectors';
+// import { findContact } from 'redux/contactsSlice';
 import classNames from 'classnames';
 
 import s from '../ContactList/ContactList.module.css';
 
 const Filter = ({ stateName }) => {
-  const filterValue = useSelector(state => state.filter);
-  const dispatch = useDispatch();
+  const filterValue = useSelector(getFilterValue);
+  console.log('Filter value: ', filterValue);
+  // const dispatch = useDispatch();
 
   const handleChange = evt => {
     const { value } = evt.target;
-    dispatch(findContact(value));
+    // dispatch(findContact(value));
+    console.log('Filtes: ', value);
   };
 
   return (

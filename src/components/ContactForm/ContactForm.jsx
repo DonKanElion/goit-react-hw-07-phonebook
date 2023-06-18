@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+// import { addContact } from 'redux/contactsSlice';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import s from './ContactForm.module.css';
 
-export function ContactForm({ contacts }) {
+export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const { items } = useSelector(getContacts);
+
+  console.log('Contacts: ', items);
+
   const dispatch = useDispatch();
+  console.log(dispatch);
 
   const handleChange = evt => {
     const { name, value } = evt.target;
@@ -33,12 +38,13 @@ export function ContactForm({ contacts }) {
       return notifyWarning(`Fill in the field`);
     }
 
-    const checkContact = contacts.some(
+    const checkContact = items.some(
       contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
     );
 
     if (!checkContact) {
-      dispatch(addContact(name, number));
+      // dispatch(addContact(name, number));
+      console.log('dispatch - addContacts');
       return resetAll();
     }
 
@@ -104,9 +110,5 @@ export function ContactForm({ contacts }) {
     </div>
   );
 }
-
-ContactForm.propTypes = {
-  contacts: PropTypes.array.isRequired,
-};
 
 export default ContactForm;
