@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts } from './operations';
+import { fetchContacts, addContact } from './operations';
 
 const initialState = {
   contacts: {
-    items: [
-      { id: 'id-1', name: 'Redux Async', number: '443-89-12' },
-      { id: 'id-2', name: 'Bradley Cooper', number: '443-89-12' },
-      { id: 'id-4', name: 'Aaron Paul', number: '645-17-79' },
-    ],
+    items: [],
     isLoading: false,
     error: null,
     filter: '',
@@ -19,16 +15,28 @@ export const contactsSlice = createSlice({
   initialState,
   extraReducers: {
     [fetchContacts.pending](state, action) {
-      state.isLoading = true;
+      state.contacts.isLoading = true;
     },
     [fetchContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.items = action.payload;
+      state.contacts.isLoading = false;
+      state.contacts.error = null;
+      state.contacts.items = action.payload;
     },
     [fetchContacts.error](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.contacts.isLoading = false;
+      state.contacts.error = action.payload;
+    },
+    [addContact.pending](state) {
+      state.contacts.isLoading = true;
+    },
+    [addContact.fulfilled](state, action) {
+      state.contacts.isLoading = false;
+      state.contacts.error = null;
+      state.contacts.items.push(action.payload);
+    },
+    [addContact.rejected](state, action) {
+      state.contacts.isLoading = false;
+      state.contacts.error = action.payload;
     },
 
   },

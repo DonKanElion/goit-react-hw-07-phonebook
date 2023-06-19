@@ -13,12 +13,8 @@ export function App() {
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
 
-  console.log('Items: ', items, 'isLoading: ', isLoading);
-
   useEffect(() => {
-    console.log('useEffect - in progress...');
     dispatch(fetchContacts());
-    console.log('useEffect - dispatch - Done!');
   }, [dispatch]);
 
   return (
@@ -38,7 +34,6 @@ export function App() {
       <ContactForm></ContactForm>
 
       {isLoading && <b>Loading contacts...</b>}
-      {error && <b>Error: {error}</b>}
 
       {items.length !== 0 ? (
         <>
@@ -48,6 +43,10 @@ export function App() {
       ) : (
         <p>Looks like you don`t have any contacts. Please add new contact.</p>
       )}
+
+      {error && <b>Error: {error}</b>}
+
+      {/* {isLoading && !error && <b>Request in progress...</b>}     */}
     </div>
   );
 }

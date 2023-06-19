@@ -17,7 +17,6 @@ export const fetchContacts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const responce = await axios.get('/contacts');
-      console.log('fetchContacts: ', responce.data);
       return responce.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -25,24 +24,26 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
-// export const fetchContacts = () => async dispatch =>  {
 
-//     try{
-//         dispatch(fetchingInProgress());
-//         const resp = await axios.get('contacts')
-//         dispatch(fetchingSuccess(resp.data));
-//     } catch (e) {
-//         dispatch(fetchingError(e.message));
-//     }
-// };
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
+  async (data, thunkAPI) => {
+    try {
+      const resporse = await axios.post('/contacts', data);
+      return resporse.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+)
 
 // export async function addContact(newContact) {
-//   // const { data } = await axios.post('contacts');
+//   const { data } = await axios.post('contacts');
 //   console.log('API: AddContact: ', addContact);
-//   // const newTask = {
-//   //     content: 'Check out mockapi.io',
-//   //     completed: false,
-//   //   };
+//   const newTask = {
+//       content: 'Check out mockapi.io',
+//       completed: false,
+//     };
 
 //   //   fetch('https://PROJECT_TOKEN.mockapi.io/tasks', {
 //   //     method: 'POST',

@@ -17,6 +17,9 @@ const getVisibleContacts = (contacts, query) => {
 
 const ContactList = () => {
   const contacts = useSelector(getContacts);
+
+  console.log(contacts);
+  
   const query = useSelector(getFilterValue);
 
   const visibleContacts = getVisibleContacts(contacts, query);
@@ -26,13 +29,13 @@ const ContactList = () => {
       <h3 className={s.title_comp}>Contacts</h3>
 
       <ul className={s.list}>
-        {visibleContacts.map(({ id, name, number }) => {
+        {visibleContacts.map(({ id, name, phone }) => {
           return (
             <ContactListItem
               key={id}
               id={id}
               name={name}
-              number={number}
+              number={phone}
               // onClick={onClick} // Видалення контакту = фільтрація копії масиву. НЕ ПОТРІБЕН
             ></ContactListItem>
           );

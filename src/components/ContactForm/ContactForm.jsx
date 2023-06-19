@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
-// import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import classNames from 'classnames';
 
@@ -9,14 +9,9 @@ import s from './ContactForm.module.css';
 
 export function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
-  const { items } = useSelector(getContacts);
-
-  console.log('Contacts: ', items);
-
+  const [phone, setPhone] = useState('');
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-  console.log(dispatch);
 
   const handleChange = evt => {
     const { name, value } = evt.target;
@@ -24,8 +19,8 @@ export function ContactForm() {
     switch (name) {
       case 'name':
         return setName(value);
-      case 'number':
-        return setNumber(value);
+      case 'phone':
+        return setPhone(value);
       default:
         throw new Error(`Unsupported type of ${name}`);
     }
@@ -38,12 +33,14 @@ export function ContactForm() {
       return notifyWarning(`Fill in the field`);
     }
 
-    const checkContact = items.some(
+    const checkContact = contacts.some(
       contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
     );
 
     if (!checkContact) {
-      // dispatch(addContact(name, number));
+      const data = {name, phone};
+      console.log(data); 
+      dispatch(addContact(data));
       console.log('dispatch - addContacts');
       return resetAll();
     }
@@ -54,7 +51,7 @@ export function ContactForm() {
 
   const resetAll = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   const resetName = () => {
@@ -84,16 +81,16 @@ export function ContactForm() {
         </label>
 
         <label className={s.title_comp}>
-          Number
+          Phone
           <input
             className={s.input}
             type="tel"
-            name="number"
-            value={number}
+            name="phone"
+            value={phone}
             onChange={handleChange}
             placeholder="+ 380 66 055 80 41"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            title="Phone Phone must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
         </label>
