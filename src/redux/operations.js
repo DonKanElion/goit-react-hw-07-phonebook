@@ -35,41 +35,27 @@ export const addContact = createAsyncThunk(
       return thunkAPI.rejectWithValue(e.message);
     }
   }
-)
+);
 
-// export async function addContact(newContact) {
-//   const { data } = await axios.post('contacts');
-//   console.log('API: AddContact: ', addContact);
-//   const newTask = {
-//       content: 'Check out mockapi.io',
-//       completed: false,
-//     };
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact', 
+  async (contactId, thunkAPI) => {
+    try {
+      const responce = await axios.delete(`/contacts/${contactId}`);
+      return responce.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+});
 
-//   //   fetch('https://PROJECT_TOKEN.mockapi.io/tasks', {
-//   //     method: 'POST',
-//   //     headers: {'content-type':'application/json'},
-//   //     // Send your data in the request body as JSON
-//   //     body: JSON.stringify(newTask)
-//   //   }).then(res => {
-//   //     if (res.ok) {
-//   //         return res.json();
-//   //     }
-//   //     // handle error
-//   //   }).then(task => {
-//   //     // do something with the new task
-//   //   }).catch(error => {
-//   //     // handle error
-//   //   })
-// }
-
-// export async function deleteContact(id) {
-//   // axios.delete(url[, config])
-
-//   await axios.delete('contacts', `${id}`);
-
-//   console.log('Delete contact: ', id);
-// }
-
-// export async function findContact(query) {
-//   console.log('findContact: ', query);
-// }
+export const findContact = createAsyncThunk(
+  'contacts/findContact', 
+  async (id, thunkAPI) => {
+    try {
+      const responce = await axios.get(`contacts/${id}`);
+      console.log(responce.data);
+      return responce.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});
