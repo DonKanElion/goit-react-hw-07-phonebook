@@ -1,19 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { getFilterValue } from 'redux/selectors';
-import { findContact } from 'redux/operations';
-import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { setFilter } from 'redux/filterSlice';
 
+import classNames from 'classnames';
 import s from '../ContactList/ContactList.module.css';
 
 const Filter = () => {
-  const filterValue = useSelector(getFilterValue);
-  console.log('Filter value: ', filterValue);
   const dispatch = useDispatch();
 
   const handleChange = evt => {
     const { value } = evt.target;
-    dispatch(findContact(value));
-    console.log('Filtes: ', value);
+    console.log(value)
+    dispatch(setFilter(value));
   };
 
   return (
@@ -23,7 +20,7 @@ const Filter = () => {
         <input
           type="text"
           name="filter"
-          value={filterValue}
+          // value={filterValue}
           onChange={handleChange}
           className={s.input}
         />

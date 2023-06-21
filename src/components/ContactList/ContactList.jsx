@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getContacts, getFilterValue } from 'redux/selectors';
+import { getFilterValue, selectVisibleContacts } from 'redux/selectors';
 import classNames from 'classnames';
 // import PropTypes from 'prop-types';
 
@@ -16,7 +16,7 @@ const getVisibleContacts = (contacts, query) => {
 };
 
 const ContactList = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectVisibleContacts);
   
   const query = useSelector(getFilterValue);
 
