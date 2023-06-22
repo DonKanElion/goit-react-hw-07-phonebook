@@ -41,7 +41,6 @@ export function ContactForm() {
       const data = {name, phone};
       console.log(data); 
       dispatch(addContact(data));
-      console.log('dispatch - addContacts');
       return resetAll();
     }
 

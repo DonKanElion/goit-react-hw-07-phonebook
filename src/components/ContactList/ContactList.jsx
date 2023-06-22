@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { getFilterValue, selectVisibleContacts } from 'redux/selectors';
 import classNames from 'classnames';
-// import PropTypes from 'prop-types';
 
 import ContactListItem from './ContactListItem';
 import s from './ContactList.module.css';
@@ -34,7 +33,6 @@ const ContactList = () => {
               id={id}
               name={name}
               number={phone}
-              // onClick={onClick} // Видалення контакту = фільтрація копії масиву. НЕ ПОТРІБЕН
             ></ContactListItem>
           );
         })}
@@ -42,9 +40,5 @@ const ContactList = () => {
     </div>
   );
 };
-
-// ContactList.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-// };
 
 export default ContactList;

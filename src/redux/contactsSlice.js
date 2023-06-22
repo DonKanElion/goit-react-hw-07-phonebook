@@ -26,24 +26,23 @@ const hundleRejected = (state, action) => {
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
+  reducers: {
+    setFilter: {
+      reducer(state, action) {
+        return {
+        ...state,
+        filter: action.payload,
+      }
+    },
+  }},
   extraReducers: {
     [fetchContacts.pending]: hundlePending,
-    // [fetchContacts.pending](state, action) {
-    //   state.contacts.isLoading = true;
-    // },
     [fetchContacts.fulfilled](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = action.payload;
     },
-    // [fetchContacts.error](state, action) {
-    //   state.contacts.isLoading = false;
-    //   state.contacts.error = action.payload;
-    // },
     [fetchContacts.error]: hundleRejected,
-    // [addContact.pending](state) {
-    //   state.contacts.isLoading = true;
-    // },
     [addContact.pending]: hundlePending,
     [addContact.fulfilled](state, action) {
       state.contacts.isLoading = false;
@@ -65,6 +64,7 @@ export const contactsSlice = createSlice({
 });
 
 export const contactsReducer = contactsSlice.reducer;
+export const { setFilter } = contactsSlice.actions;
 
 // export const contactsSlice = createSlice({
 //   {

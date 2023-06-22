@@ -11,15 +11,20 @@ const ContactListItem = ({ id, name, number }) => {
 
   return (
     <li className={s.item}>
+      <div className={s.item_wrap}>
       <p className={s.item_text}>
-        👉 {name}: {number}
+        👉 {name}:
       </p>
+      <p className={s.item_number}>
+        {number}
+      </p>
+      </div>
+
       <button
         className={s.btn_del}
         name="del"
         type="button"
         onClick={hundleDelete}
-        // onClick={() => dispatch(deleteContact(id))}
       >
         Delete
       </button>

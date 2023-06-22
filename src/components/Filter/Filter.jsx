@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setFilter } from 'redux/filterSlice';
+import { setFilter } from 'redux/contactsSlice';
 
 import classNames from 'classnames';
 import s from '../ContactList/ContactList.module.css';
@@ -9,7 +9,6 @@ const Filter = () => {
 
   const handleChange = evt => {
     const { value } = evt.target;
-    console.log(value)
     dispatch(setFilter(value));
   };
 
@@ -20,7 +19,6 @@ const Filter = () => {
         <input
           type="text"
           name="filter"
-          // value={filterValue}
           onChange={handleChange}
           className={s.input}
         />

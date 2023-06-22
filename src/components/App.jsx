@@ -29,8 +29,6 @@ export function App() {
     >
       <h1 className="hero_title">Phonebook</h1>
 
-      {/* <ContactForm contacts={contacts}></ContactForm> */}
-      {/* <ContactForm contacts={items}></ContactForm> */}
       <ContactForm></ContactForm>
 
       {isLoading && <b>Loading contacts...</b>}
